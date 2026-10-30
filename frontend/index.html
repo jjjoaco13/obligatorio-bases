@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ingresar · Torneo Interfacultades</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body class="pagina-login">
+  <main class="caja-login">
+    <h1>Torneo Interfacultades</h1>
+    <p>Fútbol 5 · Universidad Católica del Uruguay</p>
+    <form id="form-login" novalidate>
+      <label>Correo
+        <input type="email" name="correo" required maxlength="100" autocomplete="username" placeholder="usuario@ucu.edu.uy">
+      </label>
+      <label>Contraseña
+        <input type="password" name="contrasena" required maxlength="255" autocomplete="current-password">
+      </label>
+      <p class="error-login" id="error"></p>
+      <button type="submit">Ingresar</button>
+    </form>
+  </main>
+  <script type="module" src="js/login.js"></script>
+</body>
+</html>

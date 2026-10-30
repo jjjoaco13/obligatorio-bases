@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reportes · Torneo Interfacultades</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+  <header class="barra">
+    <a class="marca" href="partidos.html">Torneo <span>Interfacultades</span></a>
+    <nav class="menu" id="menu"></nav>
+    <div class="usuario"><span id="usuario"></span><button class="claro" id="salir">Salir</button></div>
+  </header>
+
+  <main class="contenido">
+    <div class="encabezado">
+      <div>
+        <h1>Reportes</h1>
+        <p>Métricas para el área de deportes de la universidad.</p>
+      </div>
+      <div class="filtros">
+        <label>Torneo
+          <select id="torneo"></select>
+        </label>
+      </div>
+    </div>
+
+    <div class="reportes" id="reportes"></div>
+  </main>
+
+  <div id="avisos"></div>
+  <script type="module" src="js/reportes.js"></script>
+</body>
+</html>

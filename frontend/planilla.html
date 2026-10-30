@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Planilla · Torneo Interfacultades</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+  <header class="barra">
+    <a class="marca" href="partidos.html">Torneo <span>Interfacultades</span></a>
+    <nav class="menu" id="menu"></nav>
+    <div class="usuario"><span id="usuario"></span><button class="claro" id="salir">Salir</button></div>
+  </header>
+
+  <main class="contenido">
+    <div class="encabezado">
+      <div>
+        <a href="partidos.html">← Volver al fixture</a>
+        <h1>Planilla de juego</h1>
+      </div>
+      <button id="marcar-jugado" hidden>Marcar como jugado</button>
+    </div>
+
+    <div class="marcador" id="marcador"></div>
+    <p class="aviso" id="aviso" hidden></p>
+
+    <div class="grilla-2">
+      <section class="panel">
+        <h2 id="titulo-local">Local</h2>
+        <ul class="lista-plantel" id="plantel-local"></ul>
+      </section>
+      <section class="panel">
+        <h2 id="titulo-visitante">Visitante</h2>
+        <ul class="lista-plantel" id="plantel-visitante"></ul>
+      </section>
+    </div>
+
+    <div class="grilla-2">
+      <section class="panel">
+        <h2>Goles</h2>
+        <div class="tabla-contenedor">
+          <table>
+            <thead><tr><th>Min.</th><th>Jugador</th><th>Equipo</th><th></th></tr></thead>
+            <tbody id="goles"></tbody>
+          </table>
+        </div>
+        <form class="form-linea editable" id="form-gol" novalidate style="margin-top: 1rem">
+          <label style="flex: 1">Jugador
+            <select name="ci_jugador" required class="select-en-planilla"></select>
+          </label>
+          <label>Minuto
+            <input type="number" name="minuto" required min="0" max="60" style="width: 5rem">
+          </label>
+          <label class="check"><input type="checkbox" name="autogol"> En contra</label>
+          <button type="submit">Agregar gol</button>
+        </form>
+      </section>
+
+      <section class="panel">
+        <h2>Tarjetas</h2>
+        <div class="tabla-contenedor">
+          <table>
+            <thead><tr><th>Min.</th><th></th><th>Jugador</th><th>Equipo</th><th></th></tr></thead>
+            <tbody id="tarjetas"></tbody>
+          </table>
+        </div>
+        <form class="form-linea editable" id="form-tarjeta" novalidate style="margin-top: 1rem">
+          <label style="flex: 1">Jugador
+            <select name="ci_jugador" required class="select-en-planilla"></select>
+          </label>
+          <label>Minuto
+            <input type="number" name="minuto" required min="0" max="60" style="width: 5rem">
+          </label>
+          <label>Color
+            <select name="color" required>
+              <option value="amarilla">Amarilla</option>
+              <option value="roja">Roja</option>
+            </select>
+          </label>
+          <button type="submit">Agregar tarjeta</button>
+        </form>
+      </section>
+    </div>
+  </main>
+
+  <div id="avisos"></div>
+  <script type="module" src="js/planilla.js"></script>
+</body>
+</html>

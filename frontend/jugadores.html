@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jugadores · Torneo Interfacultades</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+  <header class="barra">
+    <a class="marca" href="partidos.html">Torneo <span>Interfacultades</span></a>
+    <nav class="menu" id="menu"></nav>
+    <div class="usuario"><span id="usuario"></span><button class="claro" id="salir">Salir</button></div>
+  </header>
+
+  <main class="contenido">
+    <div class="encabezado">
+      <div>
+        <h1>Jugadores</h1>
+        <p>Estudiantes, docentes y funcionarios habilitados para inscribirse.</p>
+      </div>
+      <button id="nuevo">+ Nuevo jugador</button>
+    </div>
+
+    <section class="panel">
+      <form class="filtros" id="filtros">
+        <label>Buscar
+          <input type="search" name="q" placeholder="CI, nombre o email" maxlength="100">
+        </label>
+        <label>Facultad
+          <select name="facultad" id="filtro-facultad"></select>
+        </label>
+      </form>
+      <div class="tabla-contenedor">
+        <table>
+          <thead>
+            <tr><th>CI</th><th>Nombre</th><th>Email</th><th>Nacimiento</th><th>Facultad</th><th>Tipo</th><th></th></tr>
+          </thead>
+          <tbody id="tabla"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <dialog id="dialogo">
+    <form id="form" novalidate>
+      <h2 id="titulo-dialogo">Nuevo jugador</h2>
+      <div class="form-grilla">
+        <label>Cédula (sin puntos ni guión)
+          <input name="ci" required pattern="\d{7,8}" maxlength="8" inputmode="numeric" title="7 u 8 dígitos">
+        </label>
+        <label>Email
+          <input type="email" name="email" required maxlength="100">
+        </label>
+        <label>Nombre
+          <input name="nombre" required maxlength="50">
+        </label>
+        <label>Apellido
+          <input name="apellido" required maxlength="50">
+        </label>
+        <label>Fecha de nacimiento
+          <input type="date" name="fecha_nacimiento" required id="fecha-nacimiento">
+        </label>
+        <label>Tipo
+          <select name="tipo" required>
+            <option value="grado">Grado</option>
+            <option value="posgrado">Posgrado</option>
+            <option value="docente">Docente</option>
+            <option value="funcionario">Funcionario</option>
+          </select>
+        </label>
+        <label class="ancho">Facultad
+          <select name="id_facultad" required id="form-facultad"></select>
+        </label>
+      </div>
+      <div class="pie">
+        <button type="button" class="secundario" data-cerrar>Cancelar</button>
+        <button type="submit">Guardar</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div id="avisos"></div>
+  <script type="module" src="js/jugadores.js"></script>
+</body>
+</html>

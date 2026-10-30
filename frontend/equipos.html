@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Equipos · Torneo Interfacultades</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+  <header class="barra">
+    <a class="marca" href="partidos.html">Torneo <span>Interfacultades</span></a>
+    <nav class="menu" id="menu"></nav>
+    <div class="usuario"><span id="usuario"></span><button class="claro" id="salir">Salir</button></div>
+  </header>
+
+  <main class="contenido">
+    <div class="encabezado">
+      <div>
+        <h1>Equipos y planteles</h1>
+        <p>Planteles de 5 a 10 jugadores de la misma facultad, con hasta 2 docentes o funcionarios.</p>
+      </div>
+      <div class="filtros">
+        <label>Torneo
+          <select id="torneo"></select>
+        </label>
+        <button id="nuevo">+ Nuevo equipo</button>
+      </div>
+    </div>
+
+    <div class="grilla-2">
+      <section class="panel tabla-contenedor">
+        <h2>Equipos</h2>
+        <table>
+          <thead>
+            <tr><th>Equipo</th><th>Facultad</th><th>Capitán</th><th class="numero">Jug.</th><th></th></tr>
+          </thead>
+          <tbody id="tabla"></tbody>
+        </table>
+      </section>
+
+      <section class="panel" id="panel-plantel" hidden>
+        <h2 id="titulo-plantel">Plantel</h2>
+        <p class="aviso" id="aviso-plantel" hidden>El torneo no está en inscripción: el plantel no puede modificarse.</p>
+        <ul class="lista-plantel" id="plantel"></ul>
+        <form class="form-linea" id="form-plantel" novalidate style="margin-top: 1rem">
+          <label style="flex: 1">Jugador
+            <select name="ci_jugador" required id="select-jugador"></select>
+          </label>
+          <label>Camiseta
+            <input type="number" name="numero_camiseta" required min="1" max="99" style="width: 6rem">
+          </label>
+          <button type="submit">Agregar</button>
+        </form>
+      </section>
+    </div>
+  </main>
+
+  <dialog id="dialogo">
+    <form id="form" novalidate>
+      <h2 id="titulo-dialogo">Nuevo equipo</h2>
+      <div class="form-grilla">
+        <label class="ancho">Nombre
+          <input name="nombre" required maxlength="100">
+        </label>
+        <label class="ancho">Facultad que representa
+          <select name="id_facultad" required id="form-facultad"></select>
+        </label>
+        <label class="ancho" id="campo-capitan">Capitán
+          <select name="ci_capitan" id="form-capitan"></select>
+        </label>
+      </div>
+      <div class="pie">
+        <button type="button" class="secundario" data-cerrar>Cancelar</button>
+        <button type="submit">Guardar</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div id="avisos"></div>
+  <script type="module" src="js/equipos.js"></script>
+</body>
+</html>
