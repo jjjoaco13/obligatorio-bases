@@ -1,0 +1,358 @@
+/* ============ Variables ============ */
+:root {
+  --verde: #0f5132;
+  --verde-oscuro: #0a3622;
+  --verde-claro: #e3efe7;
+  --cesped: #198754;
+  --tiza: #fbfaf6;
+  --papel: #ffffff;
+  --tinta: #1d2420;
+  --tinta-suave: #5b665f;
+  --borde: #d9ded9;
+  --amarilla: #f2c200;
+  --roja: #d63031;
+  --azul: #1f5f99;
+  --radio: 10px;
+  --sombra: 0 1px 2px rgba(0, 0, 0, .06), 0 4px 16px rgba(0, 0, 0, .05);
+  --fuente-titulos: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  --fuente: 'Barlow', system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+
+body {
+  margin: 0;
+  font-family: var(--fuente);
+  font-size: 15px;
+  color: var(--tinta);
+  background: var(--tiza);
+}
+
+h1, h2, h3 {
+  font-family: var(--fuente-titulos);
+  font-weight: 700;
+  letter-spacing: .01em;
+  margin: 0 0 .5rem;
+}
+h1 { font-size: 2rem; }
+h2 { font-size: 1.45rem; }
+h3 { font-size: 1.15rem; }
+
+a { color: var(--verde); }
+
+/* ============ Barra superior ============ */
+.barra {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 0 1.5rem;
+  min-height: 60px;
+  background: var(--verde);
+  color: #fff;
+  flex-wrap: wrap;
+  /* líneas de cancha */
+  background-image: linear-gradient(90deg, transparent 49.8%, rgba(255,255,255,.08) 49.8%, rgba(255,255,255,.08) 50.2%, transparent 50.2%);
+}
+.marca {
+  font-family: var(--fuente-titulos);
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #fff;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.marca span { color: var(--amarilla); }
+
+.menu { display: flex; gap: .25rem; flex-wrap: wrap; flex: 1; }
+.menu a {
+  color: rgba(255, 255, 255, .8);
+  text-decoration: none;
+  padding: .45rem .75rem;
+  border-radius: 6px;
+  font-weight: 500;
+}
+.menu a:hover { background: rgba(255, 255, 255, .1); color: #fff; }
+.menu a.activo { background: rgba(255, 255, 255, .16); color: #fff; }
+
+.usuario { display: flex; align-items: center; gap: .75rem; font-size: .9rem; }
+.usuario .rol {
+  background: var(--amarilla);
+  color: var(--verde-oscuro);
+  padding: .1rem .5rem;
+  border-radius: 99px;
+  font-weight: 600;
+  font-size: .75rem;
+  text-transform: uppercase;
+}
+
+/* ============ Contenido ============ */
+.contenido {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1.75rem 1.5rem 4rem;
+}
+
+.encabezado {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.25rem;
+}
+.encabezado p { margin: 0; color: var(--tinta-suave); }
+
+.panel {
+  background: var(--papel);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  box-shadow: var(--sombra);
+  padding: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
+.filtros {
+  display: flex;
+  gap: .75rem;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.grilla-2 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.25rem;
+}
+
+/* ============ Formularios ============ */
+label {
+  display: flex;
+  flex-direction: column;
+  gap: .3rem;
+  font-size: .85rem;
+  font-weight: 600;
+  color: var(--tinta-suave);
+}
+label.check { flex-direction: row; align-items: center; gap: .5rem; font-weight: 500; color: var(--tinta); }
+
+input, select, textarea {
+  font: inherit;
+  color: var(--tinta);
+  padding: .55rem .7rem;
+  border: 1px solid var(--borde);
+  border-radius: 7px;
+  background: #fff;
+  min-width: 0;
+}
+input:focus, select:focus, textarea:focus {
+  outline: 2px solid var(--cesped);
+  outline-offset: -1px;
+  border-color: var(--cesped);
+}
+input:user-invalid, select:user-invalid { border-color: var(--roja); }
+input[type="checkbox"] { width: 1.1rem; height: 1.1rem; accent-color: var(--cesped); }
+
+.form-grilla {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: .9rem;
+}
+.form-grilla .ancho { grid-column: 1 / -1; }
+.form-linea { display: flex; gap: .6rem; align-items: flex-end; flex-wrap: wrap; }
+
+/* ============ Botones ============ */
+button, .boton {
+  font: inherit;
+  font-weight: 600;
+  border: 1px solid transparent;
+  border-radius: 7px;
+  padding: .55rem 1rem;
+  cursor: pointer;
+  background: var(--cesped);
+  color: #fff;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+  white-space: nowrap;
+}
+button:hover, .boton:hover { filter: brightness(.93); }
+button:disabled { opacity: .5; cursor: not-allowed; }
+button.secundario, .boton.secundario { background: #fff; color: var(--tinta); border-color: var(--borde); }
+button.peligro { background: #fff; color: var(--roja); border-color: #f0c4c4; }
+button.chico, .boton.chico { padding: .3rem .6rem; font-size: .85rem; }
+button.claro { background: transparent; color: #fff; border-color: rgba(255,255,255,.4); padding: .35rem .8rem; }
+
+.acciones { display: flex; gap: .35rem; justify-content: flex-end; flex-wrap: wrap; }
+
+/* ============ Tablas ============ */
+.tabla-contenedor { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; }
+th, td { padding: .6rem .7rem; text-align: left; border-bottom: 1px solid var(--borde); vertical-align: middle; }
+th {
+  font-family: var(--fuente-titulos);
+  font-size: .95rem;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  color: var(--tinta-suave);
+  background: var(--verde-claro);
+}
+tbody tr:hover { background: #f6f9f7; }
+td.numero, th.numero { text-align: right; font-variant-numeric: tabular-nums; }
+tr.seleccionado { background: var(--verde-claro) !important; }
+.vacio { text-align: center; color: var(--tinta-suave); padding: 1.5rem; }
+
+/* ============ Etiquetas de estado ============ */
+.etiqueta {
+  display: inline-block;
+  padding: .12rem .55rem;
+  border-radius: 99px;
+  font-size: .78rem;
+  font-weight: 600;
+  background: #eceeed;
+  color: var(--tinta-suave);
+}
+.etiqueta.programado, .etiqueta.inscripcion { background: #e1ecf7; color: var(--azul); }
+.etiqueta.jugado, .etiqueta.en_curso { background: #d9f0e2; color: var(--verde); }
+.etiqueta.postergado { background: #fff3cd; color: #8a6100; }
+.etiqueta.cancelado, .etiqueta.suspendido { background: #fde2e2; color: var(--roja); }
+.etiqueta.finalizado { background: #e7e7e7; color: #555; }
+
+.tarjeta-icono {
+  display: inline-block;
+  width: .7rem;
+  height: 1rem;
+  border-radius: 2px;
+  vertical-align: middle;
+}
+.tarjeta-icono.amarilla { background: var(--amarilla); }
+.tarjeta-icono.roja { background: var(--roja); }
+
+/* ============ Marcador (planilla) ============ */
+.marcador {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 1rem;
+  background: var(--verde-oscuro);
+  color: #fff;
+  border-radius: var(--radio);
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1.25rem;
+}
+.marcador .equipo { font-family: var(--fuente-titulos); font-size: 1.6rem; font-weight: 700; }
+.marcador .equipo.visitante { text-align: right; }
+.marcador .goles {
+  font-family: var(--fuente-titulos);
+  font-size: 3rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  background: rgba(255,255,255,.08);
+  padding: 0 1.25rem;
+  border-radius: 8px;
+}
+.marcador .detalle { grid-column: 1 / -1; text-align: center; color: rgba(255,255,255,.75); font-size: .9rem; }
+
+.aviso {
+  padding: .75rem 1rem;
+  border-radius: 8px;
+  background: #fff3cd;
+  color: #6b4d00;
+  margin-bottom: 1rem;
+}
+
+.lista-plantel { list-style: none; padding: 0; margin: 0; }
+.lista-plantel li {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  padding: .45rem .25rem;
+  border-bottom: 1px solid var(--borde);
+}
+.lista-plantel .camiseta {
+  width: 1.9rem;
+  height: 1.9rem;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--verde-claro);
+  color: var(--verde);
+  font-weight: 700;
+  font-size: .85rem;
+  flex-shrink: 0;
+}
+.lista-plantel .nombre { flex: 1; }
+
+/* ============ Diálogos ============ */
+dialog {
+  border: none;
+  border-radius: 12px;
+  padding: 0;
+  width: min(640px, calc(100vw - 2rem));
+  box-shadow: 0 20px 60px rgba(0, 0, 0, .25);
+}
+dialog::backdrop { background: rgba(10, 30, 20, .45); }
+dialog form { padding: 1.5rem; }
+dialog .pie { display: flex; justify-content: flex-end; gap: .5rem; margin-top: 1.25rem; }
+
+/* ============ Avisos flotantes ============ */
+#avisos {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+  z-index: 100;
+}
+.toast {
+  background: var(--tinta);
+  color: #fff;
+  padding: .75rem 1rem;
+  border-radius: 8px;
+  box-shadow: var(--sombra);
+  max-width: 380px;
+  animation: entrar .2s ease-out;
+}
+.toast.error { background: var(--roja); }
+.toast.ok { background: var(--cesped); }
+@keyframes entrar { from { transform: translateY(8px); opacity: 0; } }
+
+/* ============ Login ============ */
+.pagina-login {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  background:
+    radial-gradient(circle at 50% 50%, transparent 0 90px, rgba(255,255,255,.12) 91px 93px, transparent 94px),
+    linear-gradient(90deg, transparent calc(50% - 1px), rgba(255,255,255,.12) calc(50% - 1px) calc(50% + 1px), transparent calc(50% + 1px)),
+    repeating-linear-gradient(90deg, var(--cesped) 0 80px, #17804f 80px 160px);
+}
+.caja-login {
+  background: var(--papel);
+  border-radius: 14px;
+  padding: 2rem;
+  width: min(400px, 100%);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, .3);
+}
+.caja-login h1 { margin-bottom: .25rem; }
+.caja-login p { color: var(--tinta-suave); margin: 0 0 1.5rem; }
+.caja-login form { display: flex; flex-direction: column; gap: 1rem; }
+.caja-login button { justify-content: center; padding: .7rem; }
+.error-login { color: var(--roja); font-weight: 600; min-height: 1.2em; margin: 0; }
+
+/* ============ Reportes ============ */
+.reportes { display: grid; grid-template-columns: repeat(auto-fit, minmax(420px, 1fr)); gap: 1.25rem; }
+.reportes .panel { margin: 0; }
+.reportes .panel.ancho { grid-column: 1 / -1; }
+
+@media (max-width: 640px) {
+  .barra { padding: .5rem 1rem; gap: .5rem; }
+  .contenido { padding: 1.25rem 1rem 3rem; }
+  .reportes { grid-template-columns: 1fr; }
+  .marcador .equipo { font-size: 1.15rem; }
+  .marcador .goles { font-size: 2rem; }
+}

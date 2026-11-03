@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sanciones · Torneo Interfacultades</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+  <header class="barra">
+    <a class="marca" href="partidos.html">Torneo <span>Interfacultades</span></a>
+    <nav class="menu" id="menu"></nav>
+    <div class="usuario"><span id="usuario"></span><button class="claro" id="salir">Salir</button></div>
+  </header>
+
+  <main class="contenido">
+    <div class="encabezado">
+      <div>
+        <h1>Sanciones</h1>
+        <p>Las de tarjeta roja y 3 amarillas se generan solas al cargar la planilla.</p>
+      </div>
+      <div class="filtros">
+        <label>Torneo
+          <select id="torneo"></select>
+        </label>
+        <button id="nuevo">+ Sanción disciplinaria</button>
+      </div>
+    </div>
+
+    <section class="panel tabla-contenedor">
+      <table>
+        <thead>
+          <tr><th>Jugador</th><th>Equipo</th><th>Motivo</th><th>Fechas</th><th>Descripción</th><th></th></tr>
+        </thead>
+        <tbody id="tabla"></tbody>
+      </table>
+    </section>
+  </main>
+
+  <dialog id="dialogo">
+    <form id="form" novalidate>
+      <h2 id="titulo-dialogo">Sanción disciplinaria</h2>
+      <div class="form-grilla">
+        <label class="ancho" id="campo-jugador">Jugador
+          <select name="ci_jugador" required id="form-jugador"></select>
+        </label>
+        <label>Desde la fecha
+          <input type="number" name="numero_fecha_inicio" required min="1">
+        </label>
+        <label>Cantidad de fechas
+          <input type="number" name="cantidad_fechas" required min="1" max="50" value="1">
+        </label>
+        <label class="ancho">Descripción
+          <textarea name="descripcion" maxlength="255" rows="3"></textarea>
+        </label>
+      </div>
+      <div class="pie">
+        <button type="button" class="secundario" data-cerrar>Cancelar</button>
+        <button type="submit">Guardar</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div id="avisos"></div>
+  <script type="module" src="js/sanciones.js"></script>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Torneos · Torneo Interfacultades</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+  <header class="barra">
+    <a class="marca" href="partidos.html">Torneo <span>Interfacultades</span></a>
+    <nav class="menu" id="menu"></nav>
+    <div class="usuario"><span id="usuario"></span><button class="claro" id="salir">Salir</button></div>
+  </header>
+
+  <main class="contenido">
+    <div class="encabezado">
+      <div>
+        <h1>Ediciones del torneo</h1>
+        <p>Cada semestre es una edición: inscripción → en curso → finalizado.</p>
+      </div>
+      <button id="nuevo">+ Nueva edición</button>
+    </div>
+
+    <section class="panel tabla-contenedor">
+      <table>
+        <thead>
+          <tr><th>Nombre</th><th>Año</th><th>Semestre</th><th>Inicio</th><th>Fin</th><th>Estado</th><th></th></tr>
+        </thead>
+        <tbody id="tabla"></tbody>
+      </table>
+    </section>
+  </main>
+
+  <dialog id="dialogo">
+    <form id="form" novalidate>
+      <h2 id="titulo-dialogo">Nueva edición</h2>
+      <div class="form-grilla">
+        <label class="ancho">Nombre
+          <input name="nombre" required maxlength="100">
+        </label>
+        <label>Año
+          <input type="number" name="anio" required min="2000" max="2100">
+        </label>
+        <label>Semestre
+          <select name="semestre" required>
+            <option value="1">1</option>
+            <option value="2">2</option>
+          </select>
+        </label>
+        <label>Fecha de inicio
+          <input type="date" name="fecha_inicio" required>
+        </label>
+        <label>Fecha de fin
+          <input type="date" name="fecha_fin" required>
+        </label>
+        <label>Estado
+          <select name="estado" required>
+            <option value="inscripcion">Inscripción</option>
+            <option value="en_curso">En curso</option>
+            <option value="finalizado">Finalizado</option>
+          </select>
+        </label>
+      </div>
+      <div class="pie">
+        <button type="button" class="secundario" data-cerrar>Cancelar</button>
+        <button type="submit">Guardar</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div id="avisos"></div>
+  <script type="module" src="js/torneos.js"></script>
+</body>
+</html>

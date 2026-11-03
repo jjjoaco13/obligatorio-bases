@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Complejos · Torneo Interfacultades</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+  <header class="barra">
+    <a class="marca" href="partidos.html">Torneo <span>Interfacultades</span></a>
+    <nav class="menu" id="menu"></nav>
+    <div class="usuario"><span id="usuario"></span><button class="claro" id="salir">Salir</button></div>
+  </header>
+
+  <main class="contenido">
+    <div class="encabezado">
+      <div>
+        <h1>Complejos y canchas</h1>
+        <p>Lugares donde se disputan los partidos.</p>
+      </div>
+      <button id="nuevo">+ Nuevo complejo</button>
+    </div>
+
+    <div class="grilla-2">
+      <section class="panel tabla-contenedor">
+        <h2>Complejos</h2>
+        <table>
+          <thead>
+            <tr><th>Nombre</th><th>Dirección</th><th>Departamento</th><th class="numero">Canchas</th><th></th></tr>
+          </thead>
+          <tbody id="tabla"></tbody>
+        </table>
+      </section>
+
+      <section class="panel" id="panel-canchas" hidden>
+        <h2 id="titulo-canchas">Canchas</h2>
+        <div class="tabla-contenedor">
+          <table>
+            <thead>
+              <tr><th>Cancha</th><th>Superficie</th><th>Techada</th><th></th></tr>
+            </thead>
+            <tbody id="canchas"></tbody>
+          </table>
+        </div>
+        <h3 style="margin-top: 1.25rem">Agregar cancha</h3>
+        <form class="form-linea" id="form-cancha" novalidate>
+          <label style="flex: 1">Nombre
+            <input name="nombre_cancha" required maxlength="50">
+          </label>
+          <label>Superficie
+            <select name="superficie" required>
+              <option value="sintetico">Sintético</option>
+              <option value="parquet">Parquet</option>
+            </select>
+          </label>
+          <label class="check"><input type="checkbox" name="techada"> Techada</label>
+          <button type="submit">Agregar</button>
+        </form>
+      </section>
+    </div>
+  </main>
+
+  <dialog id="dialogo">
+    <form id="form" novalidate>
+      <h2 id="titulo-dialogo">Nuevo complejo</h2>
+      <div class="form-grilla">
+        <label class="ancho">Nombre
+          <input name="nombre" required maxlength="100">
+        </label>
+        <label class="ancho">Dirección
+          <input name="direccion" required maxlength="150">
+        </label>
+        <label class="ancho">Departamento
+          <select name="departamento" required id="form-departamento"></select>
+        </label>
+      </div>
+      <div class="pie">
+        <button type="button" class="secundario" data-cerrar>Cancelar</button>
+        <button type="submit">Guardar</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div id="avisos"></div>
+  <script type="module" src="js/complejos.js"></script>
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Partidos · Torneo Interfacultades</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+  <header class="barra">
+    <a class="marca" href="partidos.html">Torneo <span>Interfacultades</span></a>
+    <nav class="menu" id="menu"></nav>
+    <div class="usuario"><span id="usuario"></span><button class="claro" id="salir">Salir</button></div>
+  </header>
+
+  <main class="contenido">
+    <div class="encabezado">
+      <div>
+        <h1>Fixture</h1>
+        <p>Liga a una rueda: cada equipo enfrenta una vez a todos los demás.</p>
+      </div>
+      <div class="filtros">
+        <label>Torneo
+          <select id="torneo"></select>
+        </label>
+        <label>Fecha
+          <select id="fecha"></select>
+        </label>
+        <button id="nuevo" hidden>+ Programar partido</button>
+      </div>
+    </div>
+
+    <section class="panel tabla-contenedor">
+      <table>
+        <thead>
+          <tr>
+            <th>Fecha</th><th>Día</th><th>Turno</th><th>Cancha</th>
+            <th>Local</th><th class="numero">Resultado</th><th>Visitante</th><th>Estado</th><th></th>
+          </tr>
+        </thead>
+        <tbody id="tabla"></tbody>
+      </table>
+    </section>
+  </main>
+
+  <dialog id="dialogo">
+    <form id="form" novalidate>
+      <h2 id="titulo-dialogo">Programar partido</h2>
+      <div class="form-grilla">
+        <label>Número de fecha
+          <input type="number" name="numero_fecha" required min="1">
+        </label>
+        <label>Estado
+          <select name="estado" required>
+            <option value="programado">Programado</option>
+            <option value="postergado">Postergado</option>
+            <option value="cancelado">Cancelado</option>
+            <option value="jugado">Jugado</option>
+          </select>
+        </label>
+        <label>Equipo local
+          <select name="id_equipo_local" required id="form-local"></select>
+        </label>
+        <label>Equipo visitante
+          <select name="id_equipo_visitante" required id="form-visitante"></select>
+        </label>
+        <label>Día
+          <input type="date" name="dia" required id="form-dia">
+        </label>
+        <label>Turno
+          <select name="id_turno" required id="form-turno"></select>
+        </label>
+        <label class="ancho">Cancha
+          <select name="cancha" required id="form-cancha"></select>
+        </label>
+      </div>
+      <div class="pie">
+        <button type="button" class="secundario" data-cerrar>Cancelar</button>
+        <button type="submit">Guardar</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div id="avisos"></div>
+  <script type="module" src="js/partidos.js"></script>
+</body>
+</html>
