@@ -25,8 +25,6 @@ class ProveedorJSON(DefaultJSONProvider):
             return f'{minutos // 60:02d}:{minutos % 60:02d}'
         if isinstance(o, Decimal):
             return int(o) if o == o.to_integral_value() else float(o)
-        if isinstance(o, (bytes, bytearray)):
-            return o.decode()
         return DefaultJSONProvider.default(o)
 
 

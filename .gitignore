@@ -4,6 +4,12 @@ __pycache__/
 .venv/
 venv/
 
+# Expo / Node
+node_modules/
+.expo/
+dist/
+web-build/
+
 # Variables de entorno locales
 .env
 

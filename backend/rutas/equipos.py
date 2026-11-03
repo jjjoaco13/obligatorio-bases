@@ -170,19 +170,6 @@ def agregar_al_plantel(id_equipo):
     return jsonify(ok=True), 201
 
 
-@bp.put('/equipos/<int:id_equipo>/plantel/<ci>')
-@requiere(ADMIN)
-def modificar_camiseta(id_equipo, ci):
-    numero = v.entero(v.cuerpo(), 'numero_camiseta', 1, 99)
-    with cursor(g.rol) as cur:
-        equipo = _equipo(cur, id_equipo)
-        _exigir_inscripcion(equipo['estado_torneo'])
-        cur.execute('''
-            UPDATE equipo_jugador_torneo SET numero_camiseta = %s WHERE id_equipo = %s AND ci_jugador = %s
-        ''', (numero, id_equipo, ci))
-    return jsonify(ok=True)
-
-
 @bp.delete('/equipos/<int:id_equipo>/plantel/<ci>')
 @requiere(ADMIN)
 def quitar_del_plantel(id_equipo, ci):

@@ -1,6 +1,6 @@
 from datetime import date
 
-from flask import Blueprint, g, jsonify, request
+from flask import Blueprint, g, jsonify
 
 import validaciones as v
 from auth import ADMIN, requiere
@@ -15,22 +15,16 @@ TIPOS = ('grado', 'posgrado', 'docente', 'funcionario')
 @bp.get('/jugadores')
 @requiere(ADMIN)
 def listar_jugadores():
-    busqueda = (request.args.get('q') or '').strip()
     id_facultad = v.entero_query('facultad')
     sql = '''
         SELECT j.ci, j.nombre, j.apellido, j.email, j.fecha_nacimiento, j.tipo,
                j.id_facultad, f.nombre AS facultad
         FROM jugador j
         JOIN facultad f ON f.id_facultad = j.id_facultad
-        WHERE 1 = 1
     '''
     params = []
-    if busqueda:
-        sql += " AND (j.ci LIKE %s OR CONCAT(j.nombre, ' ', j.apellido) LIKE %s OR j.email LIKE %s)"
-        patron = f'%{busqueda}%'
-        params += [patron, patron, patron]
     if id_facultad:
-        sql += ' AND j.id_facultad = %s'
+        sql += ' WHERE j.id_facultad = %s'
         params.append(id_facultad)
     sql += ' ORDER BY j.apellido, j.nombre'
     with cursor(g.rol) as cur:
@@ -73,7 +67,7 @@ def modificar_jugador(ci):
     jugador = _datos_jugador(v.cuerpo())
     jugador['ci'] = ci
     with cursor(g.rol) as cur:
-        actual = uno(cur, 'SELECT id_facultad, tipo FROM jugador WHERE ci = %s', (ci,))
+        actual = uno(cur, 'SELECT id_facultad FROM jugador WHERE ci = %s', (ci,))
         if not actual:
             raise ApiError('El jugador no existe.', 404)
 
@@ -84,18 +78,6 @@ def modificar_jugador(ci):
             WHERE ejt.ci_jugador = %s AND e.id_facultad <> %s
         ''', (ci, jugador['id_facultad'])):
             raise ApiError('El jugador integra un plantel de otra facultad; quítelo del plantel antes de cambiarle la facultad.')
-
-        # Respetar el máximo de 2 docentes/funcionarios por plantel
-        if jugador['tipo'] in ('docente', 'funcionario') and actual['tipo'] not in ('docente', 'funcionario'):
-            if uno(cur, '''
-                SELECT 1 FROM equipo_jugador_torneo ejt
-                WHERE ejt.ci_jugador = %s AND (
-                    SELECT COUNT(*) FROM equipo_jugador_torneo otros
-                    JOIN jugador j ON j.ci = otros.ci_jugador
-                    WHERE otros.id_equipo = ejt.id_equipo AND j.tipo IN ('docente', 'funcionario')
-                ) >= 2
-            ''', (ci,)):
-                raise ApiError('El jugador integra un plantel que ya tiene 2 docentes/funcionarios.')
 
         cur.execute('''
             UPDATE jugador SET nombre = %(nombre)s, apellido = %(apellido)s, email = %(email)s,

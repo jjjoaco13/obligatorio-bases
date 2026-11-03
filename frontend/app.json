@@ -1,0 +1,14 @@
+{
+  "expo": {
+    "name": "Torneo Interfacultades",
+    "slug": "torneo-interfacultades",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "scheme": "torneo",
+    "userInterfaceStyle": "light",
+    "web": {
+      "output": "single"
+    },
+    "plugins": ["expo-router"]
+  }
+}
