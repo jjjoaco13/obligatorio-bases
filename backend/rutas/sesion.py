@@ -1,5 +1,4 @@
-import hashlib
-
+import bcrypt
 from flask import Blueprint, jsonify
 
 import validaciones as v
@@ -20,9 +19,8 @@ def login():
     with cursor('login') as cur:
         usuario = uno(cur, 'SELECT correo, contrasena, rol FROM login WHERE correo = %s', (correo,))
 
-    # Las contraseñas se guardan como hash SHA-256 (ver db/03_datos.sql)
-    hash_ingresado = hashlib.sha256(contrasena.encode()).hexdigest()
-    if not usuario or usuario['contrasena'] != hash_ingresado:
+    # Las contraseñas se guardan como hash bcrypt (ver db/03_datos.sql)
+    if not usuario or not bcrypt.checkpw(contrasena.encode(), usuario['contrasena'].encode()):
         raise ApiError('Correo o contraseña incorrectos.', 401)
 
     return jsonify(token=generar_token(usuario['correo'], usuario['rol']),
