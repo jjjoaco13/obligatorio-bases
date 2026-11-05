@@ -9,7 +9,7 @@ class ApiError(Exception):
         self.status = status
 
 
-# Mensajes para los errores de MySQL más comunes (por número de error)
+# Mensajes para los errores de MySQL más comunes
 MENSAJES_MYSQL = {
     1045: 'MySQL rechazó el usuario de la aplicación. ¿Se ejecutó db/02_usuarios.sql?',
     1049: 'No existe la base torneo_futbol5. Ejecute db/01_tablas.sql.',
