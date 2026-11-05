@@ -12,7 +12,7 @@
 | **Node.js 20+** (trae `npm`) | Correr la app de Expo | `node --version` |
 | **Expo Go** (opcional) | Probar la app en el celular | Se baja de la tienda de apps |
 
-### Librerías del backend (`backend/requirements.txt`)
+### Librerías del backend (`backend/librerias_a_instalar.txt`)
 
 Se instalan *todas* con `pip install -r librerias_a_instalar.txt`:
 

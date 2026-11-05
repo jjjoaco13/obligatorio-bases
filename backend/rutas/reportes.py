@@ -176,9 +176,9 @@ REPORTES = {
             ORDER BY `Partidos` DESC
         ''',
     },
-    # ---- Consultas adicionales a la letra ----
+    # Consultas adicionales a la letra
     'amonestados': {
-        'titulo': 'Jugadores más amonestados',
+        'titulo': 'Jugadores más tarjeteados',
         'sql': '''
             SELECT CONCAT(j.nombre, ' ', j.apellido) AS `Jugador`, e.nombre AS `Equipo`,
                    SUM(t.color = 'amarilla') AS `Amarillas`, SUM(t.color = 'roja') AS `Rojas`
