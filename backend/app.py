@@ -20,7 +20,6 @@ class ProveedorJSON(DefaultJSONProvider):
         if isinstance(o, (date, datetime)):
             return o.isoformat()
         if isinstance(o, timedelta):
-            # MySQL devuelve las columnas TIME como timedelta
             minutos = int(o.total_seconds()) // 60
             return f'{minutos // 60:02d}:{minutos % 60:02d}'
         if isinstance(o, Decimal):
