@@ -7,7 +7,6 @@ from errores import ApiError
 
 bp = Blueprint('reportes', __name__)
 
-# Cada reporte es una consulta SQL; los alias de columna son los encabezados que muestra el frontend.
 # Los que dependen de una edición reciben el parámetro %(torneo)s.
 REPORTES = {
     'posiciones': {
@@ -63,7 +62,7 @@ REPORTES = {
         ''',
     },
     'fair_play': {
-        'titulo': 'Fair play por equipo (amarilla = 1, roja = 3; menor es mejor)',
+        'titulo': 'Fair play por equipo (amarilla = 1, roja = 3; a menor valor, mejor es el Fair Play)',
         'sql': '''
             SELECT e.nombre AS `Equipo`,
                    COALESCE(SUM(t.color = 'amarilla'), 0) AS `Amarillas`,
@@ -177,9 +176,9 @@ REPORTES = {
             ORDER BY `Partidos` DESC
         ''',
     },
-    # ---- Consultas adicionales propuestas por el equipo ----
+    # ---- Consultas adicionales a la letra ----
     'amonestados': {
-        'titulo': 'Extra: jugadores más amonestados',
+        'titulo': 'Jugadores más amonestados',
         'sql': '''
             SELECT CONCAT(j.nombre, ' ', j.apellido) AS `Jugador`, e.nombre AS `Equipo`,
                    SUM(t.color = 'amarilla') AS `Amarillas`, SUM(t.color = 'roja') AS `Rojas`
@@ -195,7 +194,7 @@ REPORTES = {
         ''',
     },
     'goles_facultad': {
-        'titulo': 'Extra: goles convertidos por facultad',
+        'titulo': 'Goles convertidos por facultad',
         'sql': '''
             SELECT f.nombre AS `Facultad`, COUNT(g.id_gol) AS `Goles`
             FROM facultad f
@@ -207,7 +206,7 @@ REPORTES = {
         ''',
     },
     'edad_equipos': {
-        'titulo': 'Extra: edad promedio de los planteles',
+        'titulo': 'Edad promedio de los planteles',
         'sql': '''
             SELECT e.nombre AS `Equipo`, COUNT(*) AS `Jugadores`,
                    ROUND(AVG(TIMESTAMPDIFF(YEAR, j.fecha_nacimiento, CURDATE())), 1) AS `Edad promedio`,
