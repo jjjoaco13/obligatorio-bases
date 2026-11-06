@@ -6,6 +6,7 @@ import { api } from '@/common/api';
 import Button from '@/components/Button';
 import Campo from '@/components/Campo';
 import Selector from '@/components/Selector';
+import { enteroEntre, esFecha } from '@/common/validaciones';
 
 const ESTADOS = ['programado', 'postergado', 'cancelado', 'jugado'];
 
@@ -62,6 +63,11 @@ export default function FormPartido() {
   const completo = partido.numero_fecha && partido.dia && partido.id_equipo_local
     && partido.id_equipo_visitante && partido.id_turno && partido.cancha;
 
+    let problema = null;
+    if (partido.numero_fecha && !enteroEntre(partido.numero_fecha, 1, 99)) problema = 'El número de fecha debe ser un entero mayor a 0.';
+    else if (partido.dia && !esFecha(partido.dia)) problema = 'El día no es válido (AAAA-MM-DD).';
+    else if (partido.id_equipo_local && partido.id_equipo_local === partido.id_equipo_visitante) problema = 'Un equipo no puede enfrentarse a sí mismo.';
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <Campo
@@ -111,12 +117,9 @@ export default function FormPartido() {
       {partido.id_equipo_local && partido.id_equipo_local === partido.id_equipo_visitante && (
         <Text style={styles.errorText}>Un equipo no puede enfrentarse a sí mismo.</Text>
       )}
-      <Button
-        title="Guardar"
-        disabled={!completo || partido.id_equipo_local === partido.id_equipo_visitante}
-        onPress={guardar}
-      />
-      {error && <Text style={styles.errorText}>{error}</Text>}
+      
+      {problema && <Text style={styles.errorText}>{problema}</Text>}
+      <Button title="Guardar" disabled={!completo || problema} onPress={guardar} />
     </ScrollView>
   );
 }

@@ -6,6 +6,7 @@ import { api } from '@/common/api';
 import Button from '@/components/Button';
 import Campo from '@/components/Campo';
 import Selector from '@/components/Selector';
+import { enteroEntre, esFecha } from '@/common/validaciones';
 
 const ESTADOS = ['inscripcion', 'en_curso', 'finalizado'];
 
@@ -51,6 +52,13 @@ export default function FormTorneo() {
 
   const completo = torneo.nombre && torneo.anio && torneo.fecha_inicio && torneo.fecha_fin;
 
+  let problema = null;
+  if (torneo.anio && !enteroEntre(torneo.anio, 2000, 2100)) problema = 'El año debe estar entre 2000 y 2100.';
+  else if (torneo.fecha_inicio && !esFecha(torneo.fecha_inicio)) problema = 'La fecha de inicio no es válida (AAAA-MM-DD).';
+  else if (torneo.fecha_fin && !esFecha(torneo.fecha_fin)) problema = 'La fecha de fin no es válida (AAAA-MM-DD).';
+  else if (torneo.fecha_inicio && torneo.fecha_fin && torneo.fecha_fin < torneo.fecha_inicio) problema = 'La fecha de fin no puede ser anterior a la de inicio.';
+  else if (torneo.anio && torneo.fecha_inicio && !torneo.fecha_inicio.startsWith(torneo.anio)) problema = 'La fecha de inicio debe ser del año del torneo.';
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <Campo etiqueta="Nombre" value={torneo.nombre} onChangeText={(v) => cambiar('nombre', v)} maxLength={100} />
@@ -86,8 +94,8 @@ export default function FormTorneo() {
         onChange={(v) => cambiar('estado', v)}
       />
 
-      <Button title="Guardar" disabled={!completo} onPress={guardar} />
-      {error && <Text style={styles.errorText}>{error}</Text>}
+      {problema && <Text style={styles.errorText}>{problema}</Text>}
+      <Button title="Guardar" disabled={!completo || problema} onPress={guardar} />
     </ScrollView>
   );
 }

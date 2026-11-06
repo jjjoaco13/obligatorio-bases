@@ -6,6 +6,7 @@ import { api } from '@/common/api';
 import Button from '@/components/Button';
 import Campo from '@/components/Campo';
 import Selector from '@/components/Selector';
+import { enteroEntre } from '@/common/validaciones';
 
 // Alta de sanciones disciplinarias (sin id) y modificación de cualquier sanción (con id)
 export default function FormSancion() {
@@ -56,6 +57,10 @@ export default function FormSancion() {
 
   const completo = (id || sancion.ci_jugador) && sancion.numero_fecha_inicio && sancion.cantidad_fechas;
 
+  let problema = null;
+  if (sancion.numero_fecha_inicio && !enteroEntre(sancion.numero_fecha_inicio, 1, 99)) problema = 'La fecha de inicio debe ser un entero mayor a 0.';
+  else if (sancion.cantidad_fechas && !enteroEntre(sancion.cantidad_fechas, 1, 99)) problema = 'La cantidad de fechas debe ser un entero mayor a 0.';
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
       {id ? (
@@ -93,8 +98,8 @@ export default function FormSancion() {
         multiline
       />
 
-      <Button title="Guardar" disabled={!completo} onPress={guardar} />
-      {error && <Text style={styles.errorText}>{error}</Text>}
+      {problema && <Text style={styles.errorText}>{problema}</Text>}
+      <Button title="Guardar" disabled={!completo || problema} onPress={guardar} />
     </ScrollView>
   );
 }

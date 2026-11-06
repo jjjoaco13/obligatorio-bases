@@ -6,6 +6,7 @@ import { api } from '@/common/api';
 import Button from '@/components/Button';
 import Campo from '@/components/Campo';
 import Selector from '@/components/Selector';
+import { enteroEntre } from '@/common/validaciones';
 
 // Planilla de un partido: quién jugó, goles y tarjetas
 export default function Planilla() {
@@ -51,6 +52,10 @@ export default function Planilla() {
   const enPlanilla = jugadores
     .filter((j) => j.en_planilla)
     .map((j) => ({ valor: j.ci, texto: `#${j.numero_camiseta} ${j.apellido} (${nombreEquipo(j.id_equipo)})` }));
+
+  // El minuto tiene que ser un entero entre 0 y 60
+  const minutoGolValido = enteroEntre(gol.minuto, 0, 60);
+  const minutoTarjetaValido = enteroEntre(tarjeta.minuto, 0, 60);
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
@@ -110,14 +115,18 @@ export default function Planilla() {
               value={gol.minuto}
               onChangeText={(v) => setGol({ ...gol, minuto: v })}
               keyboardType="numeric"
+              maxLength={2}
             />
             <View style={styles.row}>
               <Switch value={gol.autogol} onValueChange={(v) => setGol({ ...gol, autogol: v })} />
               <Text style={styles.normalText}>Gol en contra</Text>
             </View>
+            {gol.minuto !== '' && !minutoGolValido && (
+              <Text style={styles.errorText}>El minuto debe ser un número entre 0 y 60.</Text>
+            )}
             <Button
               title="Agregar gol"
-              disabled={!gol.ci_jugador || !gol.minuto}
+              disabled={!gol.ci_jugador || !minutoGolValido}
               onPress={() => {
                 enviar(`/partidos/${id}/goles`, 'POST', gol);
                 setGol({ ci_jugador: null, minuto: '', autogol: false });
@@ -148,15 +157,19 @@ export default function Planilla() {
               value={tarjeta.minuto}
               onChangeText={(v) => setTarjeta({ ...tarjeta, minuto: v })}
               keyboardType="numeric"
+              maxLength={2}
             />
             <Selector
               opciones={[{ valor: 'amarilla', texto: 'Amarilla' }, { valor: 'roja', texto: 'Roja' }]}
               valor={tarjeta.color}
               onChange={(v) => setTarjeta({ ...tarjeta, color: v })}
             />
+            {tarjeta.minuto !== '' && !minutoTarjetaValido && (
+              <Text style={styles.errorText}>El minuto debe ser un número entre 0 y 60.</Text>
+            )}
             <Button
               title="Agregar tarjeta"
-              disabled={!tarjeta.ci_jugador || !tarjeta.minuto}
+              disabled={!tarjeta.ci_jugador || !minutoTarjetaValido}
               onPress={() => {
                 enviar(`/partidos/${id}/tarjetas`, 'POST', tarjeta);
                 setTarjeta({ ci_jugador: null, minuto: '', color: 'amarilla' });

@@ -6,6 +6,7 @@ import { api } from '@/common/api';
 import Button from '@/components/Button';
 import Campo from '@/components/Campo';
 import Selector from '@/components/Selector';
+import { enteroEntre } from '@/common/validaciones';
 
 // Datos del equipo (nombre y capitán) y su plantel
 export default function Plantel() {
@@ -47,6 +48,16 @@ export default function Plantel() {
   }
 
   const enInscripcion = equipo.estado_torneo === 'inscripcion';
+
+  // El número de camiseta tiene que estar entre 1 y 99 y no repetirse en el plantel
+  let problemaCamiseta = null;
+  if (nuevo.numero_camiseta !== '') {
+    if (!enteroEntre(nuevo.numero_camiseta, 1, 99)) {
+      problemaCamiseta = 'El número de camiseta debe estar entre 1 y 99.';
+    } else if (plantel.some((j) => j.numero_camiseta === Number(nuevo.numero_camiseta))) {
+      problemaCamiseta = 'Ese número de camiseta ya lo tiene otro jugador del plantel.';
+    }
+  }
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
@@ -109,9 +120,10 @@ export default function Plantel() {
             keyboardType="numeric"
             maxLength={2}
           />
+          {problemaCamiseta && <Text style={styles.errorText}>{problemaCamiseta}</Text>}
           <Button
             title="Agregar al plantel"
-            disabled={!nuevo.ci_jugador || !nuevo.numero_camiseta}
+            disabled={!nuevo.ci_jugador || !nuevo.numero_camiseta || problemaCamiseta}
             onPress={() => {
               enviar(`/equipos/${id}/plantel`, 'POST', nuevo);
               setNuevo({ ci_jugador: null, numero_camiseta: '' });

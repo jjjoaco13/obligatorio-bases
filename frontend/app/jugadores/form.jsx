@@ -6,6 +6,7 @@ import { api } from '@/common/api';
 import Button from '@/components/Button';
 import Campo from '@/components/Campo';
 import Selector from '@/components/Selector';
+import { esEmail, esFecha, hoy } from '@/common/validaciones';
 
 const TIPOS = ['grado', 'posgrado', 'docente', 'funcionario'];
 
@@ -53,6 +54,11 @@ export default function FormJugador() {
   const completo = ciValida && jugador.nombre && jugador.apellido && jugador.email
     && jugador.fecha_nacimiento && jugador.id_facultad;
 
+  let problema = null;
+  if (jugador.email && !esEmail(jugador.email)) problema = 'El email no tiene un formato válido.';
+  else if (jugador.fecha_nacimiento && !esFecha(jugador.fecha_nacimiento)) problema = 'La fecha de nacimiento no es válida (AAAA-MM-DD).';
+  else if (jugador.fecha_nacimiento > hoy()) problema = 'La fecha de nacimiento no puede ser futura.';
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <Campo
@@ -93,9 +99,8 @@ export default function FormJugador() {
         onChange={(v) => cambiar('id_facultad', v)}
       />
 
-      {jugador.ci !== '' && !ciValida && <Text style={styles.errorText}>La cédula debe tener 7 u 8 dígitos.</Text>}
-      <Button title="Guardar" disabled={!completo} onPress={guardar} />
-      {error && <Text style={styles.errorText}>{error}</Text>}
+      {problema && <Text style={styles.errorText}>{problema}</Text>}
+      <Button title="Guardar" disabled={!completo || problema} onPress={guardar} />
     </ScrollView>
   );
 }
