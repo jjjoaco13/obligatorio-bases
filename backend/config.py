@@ -8,7 +8,7 @@ DB_HOST = os.getenv('DB_HOST', 'localhost')
 DB_PORT = int(os.getenv('DB_PORT', '3306'))
 DB_NAME = os.getenv('DB_NAME', 'torneo_futbol5')
 
-# Cada rol de la aplicación usa un usuario de MySQL distinto (ver db/02_usuarios.sql),
+# Cada rol de la aplicación usa un usuario de MySQL distinto,
 # así los permisos también se controlan a nivel de base de datos.
 DB_USUARIOS = {
     'login': (os.getenv('DB_USER_LOGIN', 'app_login'), os.getenv('DB_PASS_LOGIN', 'Login_2026!')),

@@ -14,7 +14,6 @@ INSERT INTO facultad (id_facultad, nombre) VALUES
 INSERT INTO torneo (id_torneo, nombre, anio, semestre, fecha_inicio, fecha_fin, estado) VALUES
     (1, 'Torneo facultades 2026 - Semestre 2', 2026, 2, '2026-10-05', '2026-11-30', 'en_curso');
 
--- CORRECCIÓN: faltaban los turnos (los partidos usan id_turno 1, 2 y 3)
 INSERT INTO turno (id_turno, hora_inicio, hora_fin) VALUES
     (1, '18:00:00', '19:00:00'),
     (2, '19:00:00', '20:00:00'),
